@@ -38,6 +38,7 @@ func NewScrapePool(
 		config: cfg,
 		client: client,
 		loops:  map[uint64]loop{},
+		quitCh: make(chan struct{}, 1),
 	}
 
 	// store is a common storage to which multiple scrapers will push
@@ -70,6 +71,8 @@ type ScrapePool struct {
 
 	*Exporter
 
+	quitCh chan struct{}
+
 	// Constructor for new scrape loops.
 	newLoop func(scrapeLoopOptions) loop
 }
@@ -79,6 +82,8 @@ func (sp *ScrapePool) Stop() {
 	sp.mtx.Lock()
 	defer sp.mtx.Unlock()
 	sp.cancel()
+	close(sp.quitCh)
+
 	var wg sync.WaitGroup
 
 	for fp, l := range sp.loops {
@@ -133,6 +138,8 @@ func (sp *ScrapePool) Start(targets []*Target) {
 				entries := sp.store.Commit()
 				sp.Exporter.entries = entries
 				break
+			case <-sp.quitCh:
+				return
 			}
 		}
 	}()
