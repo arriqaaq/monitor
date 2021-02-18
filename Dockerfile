@@ -13,7 +13,7 @@ RUN go test $(go list ./... | grep -v /vendor/ | grep -v /template/|grep -v /bui
 
 # ldflags "-s -w" strips binary
 RUN CGO_ENABLED=0 GOOS=linux go build \
-    -installsuffix cgo -o service_monitor
+    -installsuffix cgo -o monitor
 
 
 # Release stage

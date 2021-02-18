@@ -164,7 +164,6 @@ func (t *Target) hash() uint64 {
 }
 
 // offset returns the time until the next scrape cycle for the target.
-// It includes the global server jitterSeed for scrapes from multiple Prometheus to try to be at different times.
 func (t *Target) offset(interval time.Duration, jitterSeed uint64) time.Duration {
 	now := time.Now().UnixNano()
 

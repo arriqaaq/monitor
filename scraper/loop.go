@@ -117,8 +117,7 @@ func (sl *scrapeLoop) scrapeAndReport(interval, timeout time.Duration, appendTim
 	return start
 }
 
-// Stop the scraping. May still write data and stale markers after it has
-// returned. Cancel the context to stop all writes.
+// Stop the scraping.
 func (sl *scrapeLoop) stop() {
 	sl.cancel()
 	<-sl.stopped
