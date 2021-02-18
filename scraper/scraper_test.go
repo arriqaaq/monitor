@@ -99,8 +99,6 @@ func TestTargetScrapeScrapeCancel(t *testing.T) {
 	case err := <-errc:
 		require.NoError(t, err)
 	}
-	// If this is closed in a defer above the function the test server
-	// doesn't terminate and the test doesn't complete.
 	close(block)
 }
 
