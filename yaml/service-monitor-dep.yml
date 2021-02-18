@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sample
+    component: service-monitor
+  name: service-monitor
+  namespace: "app"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-monitor
+  template:
+    metadata:
+      annotations:
+        prometheus.io.scrape: "true"
+        prometheus.io.port: "8080"
+      labels:
+        app: service-monitor
+    spec:
+      containers:
+        - name: gateway
+          resources:
+            requests:
+              cpu: 50m
+              memory: 120Mi
+          image: arriqaaq/monitor:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            timeoutSeconds: 5
+          env:
+            - name: read_timeout
+              value: "65s"
+            - name: write_timeout
+              value: "65s"
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+      nodeSelector:
+        beta.kubernetes.io/arch: amd64
