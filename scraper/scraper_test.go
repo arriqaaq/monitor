@@ -26,9 +26,6 @@ func TestTargetScraperScrapeOK(t *testing.T) {
 			if timeout != expectedTimeout {
 				t.Errorf("Expected scrape timeout header %q, got %q", expectedTimeout, timeout)
 			}
-
-			w.Header().Set("Content-Type", `text/plain; version=0.0.4`)
-			w.Write([]byte("metric_a 1\nmetric_b 2\n"))
 		}),
 	)
 	defer server.Close()
