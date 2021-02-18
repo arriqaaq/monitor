@@ -30,7 +30,7 @@ var (
 	storeSize = 10
 )
 
-//healthzHandler healthz hanlder
+// healthzHandler for reporting health
 func healthzHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
