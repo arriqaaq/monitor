@@ -112,6 +112,7 @@ func (sl *scrapeLoop) scrapeAndReport(interval, timeout time.Duration, appendTim
 		health = HealthGood
 	}
 
+	// appending the stats to the store to make it available to the exporter.
 	app.Add(sl.scraper.url(), health, time.Since(start))
 
 	return start
