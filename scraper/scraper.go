@@ -38,8 +38,7 @@ type scraper interface {
 type Store interface {
 	// Add adds a target response for the given target.
 	Add(url *url.URL, health TargetHealth, duration time.Duration) error
-	// Commit commits the entries and clears the store.
-	// This should be called when all the entries are committed/reported.
+	// Commit commits the entries and clears the store. This should be called when all the entries are committed/reported.
 	Commit() []TargetResponse
 }
 

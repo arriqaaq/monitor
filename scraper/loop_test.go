@@ -122,9 +122,6 @@ func TestScrapeLoopRun(t *testing.T) {
 		t.Fatalf("Expected timeout error but got none")
 	}
 
-	// We already caught the timeout error and are certainly in the loop.
-	// Let the scrapes returns immediately to cause no further timeout errors
-	// and check whether canceling the parent context terminates the loop.
 	close(block)
 	cancel()
 
