@@ -23,7 +23,7 @@ Please make sure you have following installed, before you proceed to next steps.
 
 ##### Create a local kubernetes cluster 
 ```
-    k3d cluster create
+k3d cluster create
 ```
 ##### Clone this repository and change to service_monitor directory 
 ```
