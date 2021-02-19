@@ -22,9 +22,9 @@ Please make sure you have following installed, before you proceed to next steps.
 2. `kubectl`
 
 ##### Create a local kubernetes cluster 
-    ```
+```
     k3d cluster create
-    ```
+```
 ##### Clone this repository and change to service_monitor directory 
 ```
 git clone https://www.github.com/arriqaaq/monitor.git && cd monitor
